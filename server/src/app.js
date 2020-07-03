@@ -1,24 +1,28 @@
-const express = require('express');
-const dotenv = require('dotenv');
-const morgan = require('morgan');
-const colors = require('colors');
-const { cors } = require('./middlewares/cors')
+import express, { json } from 'express';
+import { config, load } from 'dotenv';
+const path = require('path');
+import morgan from 'morgan';
+import colors from 'colors';
+import { cors } from './middlewares/cors';
 
-dotenv.config({ path: './config.config.env' });
+// Env
+config({ path: path.join(__dirname, "./config/config.env") });
 
-const PORT = process.env.PORT || 3000
+const PORT = process.env.PORT;
 
 // database connection
 
 const app = express()
 
-app.use(cors)
+app.use(cors);
 
 if (process.env.NODE_ENV === 'development') {
     app.use(morgan('dev'));
 }
 
-app.use(express.json());
+app.use(json());
+
+app.use('/v1/movies', require('./movies/movie.router').default)
 
 const server = app.listen(
     PORT,

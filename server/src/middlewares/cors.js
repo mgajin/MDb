@@ -1,5 +1,5 @@
 // CORS middleware
-exports.cors = (req, res, next) => {
+export function cors(req, res, next) {
     res.header('Access-COntrol-Allow-Origin', '*');
     res.header(
         'Access-Control-Allow-Headers',
