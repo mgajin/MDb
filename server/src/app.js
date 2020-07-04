@@ -1,16 +1,16 @@
 import express, { json } from 'express';
-import { config, load } from 'dotenv';
+import { config } from 'dotenv';
 const path = require('path');
 import morgan from 'morgan';
 import colors from 'colors';
 import { cors } from './middlewares/cors';
+import connectDb from './db';
 
-// Env
 config({ path: path.join(__dirname, "./config/config.env") });
 
 const PORT = process.env.PORT;
 
-// database connection
+connectDb()
 
 const app = express()
 
@@ -22,7 +22,8 @@ if (process.env.NODE_ENV === 'development') {
 
 app.use(json());
 
-app.use('/v1/movies', require('./movies/movie.router').default)
+import movieRouter from './movies/index'
+app.use('/v1/movies', movieRouter)
 
 const server = app.listen(
     PORT,
