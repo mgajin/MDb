@@ -6,10 +6,24 @@ export default function makeMoviesEndpointHandler({ movieRepo }) {
         getMovie
     })
 
-    // @route   GET /movies
-    async function getMovies(req, res) {}
+    async function getMovies(req, res) {
+        let movies
 
-    // @route   GET /movies/:movie
+        if (req.query.genre) {
+            movies = await movieRepo.getByGenre(genre)
+        } else if (req.query.title) {
+            movies = await movieRepo.getByTitle(req.query.title)
+        } else {
+            movies = await movieRepo.getAll()
+        }
+
+        if (!movies) {
+            return res.status(404).json({ success: false, message: 'Not found' })
+        }
+
+        res.status(200).json({ success: true, movies })
+    }
+
     async function getMovie(req, res) {
 
         const search = req.params.movie;
