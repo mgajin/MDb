@@ -23,7 +23,9 @@ if (process.env.NODE_ENV === 'development') {
 app.use(json());
 
 import movieRouter from './movies/index'
+import authRouter from './auth/index'
 app.use('/v1/movies', movieRouter)
+app.use('/v1/auth', authRouter)
 
 const server = app.listen(
     PORT,
