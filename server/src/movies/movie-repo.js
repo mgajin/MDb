@@ -2,6 +2,7 @@ export default function makeMovieRepo({ movieModel }) {
     return Object.freeze({
         add,
         getAll,
+        getById,
         getByTitle,
         getByGenre
     })
@@ -21,6 +22,12 @@ export default function makeMovieRepo({ movieModel }) {
         const movies = await movieModel.find()
 
         return movies
+    }
+
+    async function getById(id) {
+        const movie = await movieModel.findById(id)
+
+        return movie
     }
 
     async function getByTitle(title) {

@@ -27,9 +27,8 @@ export default function makeMoviesEndpointHandler({ movieRepo, imdbApi }) {
     }
 
     async function getMovie(req, res) {
-
-        const search = req.params.movie;
-        const movie = await fetchMovie(search);
+        const id = req.params.movie;
+        const movie = await movieRepo.getById(id);
 
         if (!movie) {
             return res.status(404).send('Movie not found')
