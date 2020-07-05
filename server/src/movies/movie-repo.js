@@ -24,30 +24,22 @@ export default function makeMovieRepo({ movieModel }) {
     }
 
     async function getByTitle(title) {
-
         const movies = await movieModel.find()
-        let filtered = null
-
-        if (movies) {
-            filtered = movies.filter(movie => {
-                movie.title.includes(title)
-            })
-        }
-
+        
+        const filtered = movies.filter(movie => {
+            return movie.title.includes(title)
+        })
+    
         return filtered
     }
 
     async function getByGenre(genre) {
-
         const movies = await movieModel.find()
-        let filtered = null
-
-        if (movies) {
-            filtered = movies.filter(movie => {
-                movie.genre.includes(genre)
-            })
-        }
-
+        
+        const filtered = movies.filter(movie => {
+            return movie.genre.includes(genre)
+        })
+    
         return filtered
     }
 }

@@ -12,7 +12,7 @@ export default function makeMoviesEndpointHandler({ movieRepo, imdbApi }) {
         let movies
 
         if (req.query.genre) {
-            movies = await movieRepo.getByGenre(genre)
+            movies = await movieRepo.getByGenre(req.query.genre)
         } else if (req.query.title) {
             movies = await movieRepo.getByTitle(req.query.title)
         } else {
