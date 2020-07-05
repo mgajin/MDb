@@ -6,6 +6,8 @@ export default function makeMovieRepo({ movieModel }) {
         getByGenre
     })
 
+    async function add(movie) {}
+
     async function getAll() {
         const movies = await movieModel.find()
 
@@ -39,6 +41,4 @@ export default function makeMovieRepo({ movieModel }) {
 
         return filtered
     }
-
-    async function add() {}
 }
