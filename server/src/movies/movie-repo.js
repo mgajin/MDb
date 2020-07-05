@@ -6,7 +6,16 @@ export default function makeMovieRepo({ movieModel }) {
         getByGenre
     })
 
-    async function add(movie) {}
+    async function add(movieData) {
+
+        let movie = await movieModel.findOne({ title: movieData.title })
+
+        if (!movie) {
+            movie = await movieModel.create(movieData)
+        }
+
+        return movie
+    }
 
     async function getAll() {
         const movies = await movieModel.find()

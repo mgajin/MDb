@@ -1,3 +1,5 @@
+import makeMovie from './movie'
+
 export default function makeMoviesEndpointHandler({ movieRepo, imdbApi }) {
     return Object.freeze({
         getMovies,
@@ -36,10 +38,21 @@ export default function makeMoviesEndpointHandler({ movieRepo, imdbApi }) {
         res.status(200).json({ success: true, movie })
     }
 
-    async function addMovie(req, res) {}
+    async function addMovie(req, res) {
+        const imdbId = req.body.imdbId
+        const movieData = await imdbApi.fetchMovie(imdbId)
+
+        if (!movieData) {
+            return res.status(404).send('Movie not found')
+        }
+
+        const movie = makeMovie(movieData)
+        const createdMovie = await movieRepo.add(movie)
+
+        res.status(201).json({ success: true, movie: createdMovie })
+    }
 
     async function searchImdb(req, res) {
-
         const search = req.params.movie
         const movies = await imdbApi.searchMovie(search)
 
