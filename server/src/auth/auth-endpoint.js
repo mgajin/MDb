@@ -25,7 +25,7 @@ export default function makeAuthEndpointHanddler({ userRepo }) {
     }
 
     async function register(req, res) {
-        const { username, email, password, password2 } = req.body
+        const { firstName, lastName, username, password, password2 } = req.body
 
         if (!auth.matching(password, password2)) {
             return res.status(500).json({ success: false, message: 'Passwords do not match' })
@@ -36,14 +36,10 @@ export default function makeAuthEndpointHanddler({ userRepo }) {
             return res.status(500).json({ success: false, message: 'Username already exists' })
         }
 
-        user = await userRepo.getByEmail(email)
-        if (user) {
-            return res.status(500).json({ success: false, message: 'Email already exists' })
-        }
-
         const userData = { 
-            username,
-            email, 
+            firstName,
+            lastName,
+            username, 
             password: auth.hashed(password) 
         }
 
