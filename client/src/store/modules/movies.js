@@ -24,17 +24,18 @@ const getters = {
 const actions = {
 
     async GET_MOVIES({ commit }) {
-        await Axios.get('http://localhost:3000/v1/movies')
-            .then(response => {
-                if (response.data.success) {
-                    commit('load_movies', response.data.movies)
-                } else {
-                    alert(response.data.message)
-                }
-            })
-            .catch(err => {
-                alert(err.message)
-            })
+        await Axios
+        .get('http://localhost:3000/v1/movies')
+        .then(response => {
+            if (response.data.success) {
+                commit('load_movies', response.data.movies)
+            } else {
+                alert(response.data.message)
+            }
+        })
+        .catch(err => {
+            alert(err.message)
+        })
     }
 }
 
