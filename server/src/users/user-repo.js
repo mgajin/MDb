@@ -2,6 +2,7 @@ export default function makeUserRepo({ userModel }) {
     return Object.freeze({
         getByUsername,
         getByEmail,
+        getById,
         addNew
     })
 
@@ -15,6 +16,10 @@ export default function makeUserRepo({ userModel }) {
         return await userModel
             .findOne({ email })
             .select('+password')
+    }
+
+    async function getById(id) {
+        return await userModel.findById(id)
     }
 
     async function addNew(userData) {

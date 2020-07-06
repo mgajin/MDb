@@ -13,6 +13,10 @@ const correct = (password, hashed) => {
     return bcrypt.compareSync(password, hashed)
 }
 
+const decoded = (token) => {
+    return jwt.verify(token, process.env.JWT_SECRET)
+}
+
 const signToken = (userId) => {
     return jwt.sign({ id: userId }, process.env.JWT_SECRET, { expiresIn: 86400 })
 }
@@ -21,5 +25,6 @@ module.exports = {
     matching,
     hashed,
     correct,
+    decoded,
     signToken
 }

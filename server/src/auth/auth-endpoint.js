@@ -3,7 +3,8 @@ import auth from './auth'
 export default function makeAuthEndpointHanddler({ userRepo }) {
     return Object.freeze({
         login,
-        register
+        register,
+        getUser
     })
 
     async function login(req, res) {
@@ -50,6 +51,12 @@ export default function makeAuthEndpointHanddler({ userRepo }) {
         const token = auth.signToken(user._id)
 
         res.status(201).json({ success: true, token, user })
+    }
+
+    async function getUser(req, res) {
+        const user = req.user
+
+        res.status(200).json({ success: true, user })
     }
 
 }
