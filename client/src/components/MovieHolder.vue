@@ -3,7 +3,11 @@
         <v-container>
             <v-row dense>
                 <v-col cols=12>
-                    <v-card-title v-text="movie.title"></v-card-title>
+                    <v-card-title  
+                        v-text="movie.title"
+                        align=justify
+                        class="headline pa-1"
+                    ></v-card-title>
                 </v-col>
                 <v-col cols=6 sm=5 md=4 lg=3>
                     <v-img :src="movie.poster" height=100% contain></v-img>
@@ -23,11 +27,19 @@
                         class="hidden-xs-only"
                     ></v-card-text>
                 </v-col>
-                <v-col cols=12 class="hidden-sm-and-up">
+                <v-col cols=12>
                     <v-card-text 
                         v-text="movie.plot"
                         align=justify
+                        class="hidden-sm-and-up pa-0 mb-2"
                     ></v-card-text>
+                    <v-actions>
+                        <v-btn
+                            block
+                            v-text="'save to watchlist'"
+                            color="primary" 
+                        ></v-btn>
+                    </v-actions>
                 </v-col>
             </v-row>
         </v-container>
