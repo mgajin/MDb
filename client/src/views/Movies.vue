@@ -1,7 +1,9 @@
 <template>
-    <div>
-        <h1>Movies Page</h1>
-    </div>
+    <v-container>
+        <v-layout row wrap>
+            Movie Page
+        </v-layout>
+    </v-container>
 </template>
 
 <script>

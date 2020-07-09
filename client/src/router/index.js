@@ -20,6 +20,7 @@ const routes = [
   {
     path: '/movies/:id',
     name: 'movie',
+    props: true,
     component: Movie
   }
 ]

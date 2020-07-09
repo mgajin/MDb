@@ -42,7 +42,6 @@ export default {
         return {
             drawer: false,
             navItems: [
-                { icon: '', title: 'Movies', link: '/movies' },
                 { icon: '', title: 'Login', link: '/login'},
                 { icon: '', title: 'Register', link: '/register' },
                 { icon: '', title: 'Profile', link: '/profile' }
