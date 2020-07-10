@@ -25,9 +25,9 @@ export default function makeAuthEndpointHanddler({ userRepo }) {
     }
 
     async function register(req, res) {
-        const { firstName, lastName, username, password, password2 } = req.body
+        const { firstName, lastName, username, password, confirmPassword } = req.body
 
-        if (!auth.matching(password, password2)) {
+        if (!auth.matching(password, confirmPassword)) {
             return res.status(500).json({ success: false, message: 'Passwords do not match' })
         }
 
