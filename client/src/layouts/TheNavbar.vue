@@ -43,7 +43,6 @@ export default {
             drawer: false,
             navItems: [
                 { icon: '', title: 'Login', link: '/login'},
-                { icon: '', title: 'Register', link: '/register' },
                 { icon: '', title: 'Profile', link: '/profile' }
             ]
         }
