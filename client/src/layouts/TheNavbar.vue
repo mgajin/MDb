@@ -17,9 +17,8 @@
                         :key="item.title"
                         router
                         :to="item.link"
-                    >
-                        {{ item.title }}
-                    </v-btn>
+                        v-text="item.title"
+                    ></v-btn>
                 </v-toolbar-items>
             </v-toolbar>
         </v-app-bar>
@@ -27,7 +26,7 @@
             <v-list nav dense>
                 <v-list-item-group v-for="item in navItems" :key="item.title">
                     <v-list-item router :to="item.link">
-                        <v-list-item-title>{{ item.title }}</v-list-item-title>
+                        <v-list-item-title v-text="item.title"></v-list-item-title>
                     </v-list-item>
                 </v-list-item-group>
             </v-list>
@@ -36,15 +35,33 @@
 </template>
 
 <script>
+
+import { mapGetters } from 'vuex'
+
 export default {
     name: 'TheNavbar',
     data() {
         return {
-            drawer: false,
-            navItems: [
-                { icon: '', title: 'Login', link: '/login'},
-                { icon: '', title: 'Profile', link: '/profile' }
-            ]
+            drawer: false
+        }
+    },
+    computed: {
+        ...mapGetters(['getUser']),
+        navItems() {
+            let items
+            if (this.userIsLogged) {
+                items = [
+                    { icon: '', title: 'Profile', link: '/profile' }
+                ]
+            } else {
+                items = [
+                    { icon: '', title: 'Login', link: '/login' }
+                ]
+            }
+            return items
+        },
+        userIsLogged() {
+            return this.getUser !== null && this.getUser !== undefined
         }
     }
 }

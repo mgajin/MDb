@@ -1,6 +1,11 @@
 <template>
     <v-form>
         <v-container>
+            <v-row v-if="getError">
+                <v-col>
+                    <ErrorAlert :text=getError @dismissed="onDismissed"/>
+                </v-col>
+            </v-row>
             <v-row>
                 <v-col cols=6>
                     <v-text-field
@@ -40,7 +45,11 @@
                     ></v-text-field>
                 </v-col>
                 <v-col cols=12>
-                    <v-btn block color=primary @click="signup">sign up</v-btn>
+                    <LoadingButton 
+                        :text="'sign up'" 
+                        :loading=getLoading 
+                        @clicked="signup"
+                    />
                 </v-col>
             </v-row>
         </v-container>
@@ -49,7 +58,9 @@
 
 <script>
 
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
+import LoadingButton from '../custom/LoadingButton'
+import ErrorAlert from '../custom/ErrorAlert'
 
 export default {
     name: 'SignUpForm',
@@ -66,17 +77,27 @@ export default {
             }
         }
     },
+    components: {
+        ErrorAlert,
+        LoadingButton
+    },
+    computed: {
+        ...mapGetters(['getError', 'getLoading'])
+    },
     methods: {
         ...mapActions(['SIGN_UP']),
         signup() {
             const user = {
                 firstName: this.firstName,
                 lastName: this.lastName,
-                username: this.user,
+                username: this.username,
                 password: this.password,
                 confirmPassword: this.confirmPassword
             }
             this.SIGN_UP(user)
+        },
+        onDismissed() {
+            this.$store.commit('clear_error')
         }
     }
 }
