@@ -5,7 +5,7 @@
                 <v-card>
                     <v-row>
                         <v-col cols=12>
-                            <v-tabs grow v-model="tab">
+                            <v-tabs grow>
                                 <v-tab>
                                     <v-icon>mdi-login-variant</v-icon>
                                 </v-tab>
@@ -31,6 +31,7 @@
 
 import SignInForm from '../components/forms/SignInForm'
 import SignUpForm from '../components/forms/SignUpForm'
+import { mapGetters } from 'vuex'
 
 export default {
     name: 'Login',
@@ -42,6 +43,19 @@ export default {
     components: {
         SignInForm,
         SignUpForm
-    }
+    },
+    watch: {
+        getToken: function (value) {
+            if (value) {
+                this.$router.push('/')
+            }
+        } 
+    },
+    computed: mapGetters(['getToken']),
+    created() {
+        if (this.getToken) {
+            this.$router.push('/')
+        }
+    },
 }
 </script>

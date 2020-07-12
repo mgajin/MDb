@@ -19,6 +19,12 @@
                         :to="item.link"
                         v-text="item.title"
                     ></v-btn>
+                    <v-btn
+                        text
+                        v-if="getToken"
+                        v-text="'logout'"
+                        @click="logout"
+                    ></v-btn>
                 </v-toolbar-items>
             </v-toolbar>
         </v-app-bar>
@@ -46,10 +52,10 @@ export default {
         }
     },
     computed: {
-        ...mapGetters(['getUser']),
+        ...mapGetters(['getToken']),
         navItems() {
             let items
-            if (this.userIsLogged) {
+            if (this.getToken) {
                 items = [
                     { icon: '', title: 'Profile', link: '/profile' }
                 ]
@@ -59,9 +65,11 @@ export default {
                 ]
             }
             return items
-        },
-        userIsLogged() {
-            return this.getUser !== null && this.getUser !== undefined
+        }
+    },
+    methods: {
+        logout() {
+            this.$store.commit('clear_token')
         }
     }
 }
