@@ -4,6 +4,7 @@ import Home from '../views/Home'
 import Movies from '../views/Movies'
 import Movie from '../views/Movie'
 import Login from '../views/Login'
+import Admin from '../views/Admin'
 
 Vue.use(VueRouter)
 
@@ -28,6 +29,11 @@ const routes = [
     path: '/login',
     name: 'login',
     component: Login
+  },
+  {
+    path: '/admin',
+    name: 'admin',
+    component: Admin
   }
 ]
 
