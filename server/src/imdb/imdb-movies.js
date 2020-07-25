@@ -17,10 +17,10 @@ export default function makeImdbApi({ axios }) {
                 }
             })
             .catch(error => {
-                console.log(error);
-            });
+                console.log(error)
+            })
     
-        return response.data.Search;
+        return response.data.Search
     }
 
     async function fetchMovie(id) {
@@ -37,10 +37,10 @@ export default function makeImdbApi({ axios }) {
                 }
             })
             .catch(error => {
-                console.log(error);
-            });
+                console.log(error)
+            })
     
-        return response.data;
+        return response.data
     }
         
 }

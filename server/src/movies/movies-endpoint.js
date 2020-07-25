@@ -1,4 +1,4 @@
-import makeMovie from './movie'
+import { makeMovie, mapImdbMovies } from './movie'
 
 export default function makeMoviesEndpointHandler({ movieRepo, imdbApi }) {
     return Object.freeze({
@@ -53,11 +53,13 @@ export default function makeMoviesEndpointHandler({ movieRepo, imdbApi }) {
 
     async function searchImdb(req, res) {
         const search = req.params.movie
-        const movies = await imdbApi.searchMovie(search)
+        const imdbMovies = await imdbApi.searchMovie(search)
 
-        if (!movies) {
-            return res.status(404).send('Not found')
+        if (!imdbMovies) {
+            return res.status(404).json({ success: false, message: 'Not found' })
         }
+
+        const movies = mapImdbMovies(imdbMovies)
 
         res.status(200).json({ success: true, movies })
     }
