@@ -6,7 +6,7 @@
                 :key="movie.id"
                 v-slot:default="{ active, toggle }"
             >
-                <v-card class="ma-2" width=115>
+                <v-card class="ma-2" width=180>
                     <v-img :src="movie.poster" @click="toggle"></v-img>
                     <v-card-actions>
                         <v-btn 

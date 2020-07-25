@@ -16,7 +16,7 @@ const actions = {
 
     async GET_MOVIES({ commit }) {
         await Axios
-        .get('http://localhost:3000/v1/movies')
+        .get('http://localhost:5000/v1/movies')
         .then(response => {
             if (response.data.success) {
                 const movies = response.data.movies
@@ -30,7 +30,7 @@ const actions = {
 
     async GET_MOVIE({ commit }, id) {
         await Axios
-        .get(`http://localhost:3000/v1/movies/${id}`)
+        .get(`http://localhost:5000/v1/movies/${id}`)
         .then(response => {
             if (response.data.success) {
                 const movie = response.data.movie
@@ -46,7 +46,7 @@ const actions = {
         const headers = { Authorization: `Bearer ${payload.token}` }
 
         await Axios
-        .get(`http://localhost:3000/v1/movies/imdb/${payload.movie}`, {
+        .get(`http://localhost:5000/v1/movies/imdb/${payload.movie}`, {
             headers
         })
         .then(response => {
@@ -64,7 +64,7 @@ const actions = {
         const headers = { Authorization: `Bearer ${payload.token}` }
 
         await Axios
-        .post('http://localhost:3000/v1/movies', body, {
+        .post('http://localhost:5000/v1/movies', body, {
             headers
         })
         .then(response => {

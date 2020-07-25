@@ -5,11 +5,21 @@
         <MovieCarousel :movies="getMovies"/>
       </v-col>
     </v-row>
-
     <v-sheet elevation=8>
       <v-row>
         <v-col cols=12 align=center>
           <h2>Fan favorites</h2>
+        </v-col>
+        <v-col cols=12>
+          <MovieSlideGroup :movies="getMovies" />
+        </v-col>
+      </v-row>
+    </v-sheet>
+    <br>
+    <v-sheet elevation=8>
+      <v-row>
+        <v-col cols=12 align=center>
+          <h2>Top rated</h2>
         </v-col>
         <v-col cols=12>
           <MovieSlideGroup :movies="getMovies" />

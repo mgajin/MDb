@@ -21,7 +21,7 @@ const actions = {
         commit('clear_error')
 
         await Axios
-        .post('http://localhost:3000/v1/auth/login', {
+        .post('http://localhost:5000/v1/auth/login', {
             username: payload.username,
             password: payload.password
         })
@@ -43,7 +43,7 @@ const actions = {
         commit('clear_error')
 
         await Axios
-        .post('http://localhost:3000/v1/auth/register', {
+        .post('http://localhost:5000/v1/auth/register', {
             firstName: payload.firstName,
             lastName: payload.lastName,
             username: payload.username,
