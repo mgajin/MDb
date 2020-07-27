@@ -22,8 +22,10 @@ app.use(json())
 
 import movieRouter from './movies'
 import authRouter from './auth'
+import reviewRouter from './reviews'
 app.use('/v1/movies', movieRouter)
 app.use('/v1/auth', authRouter)
+app.use('/v1/reviews', reviewRouter)
 
 app.use(cors)
 app.use(express.static(`${__dirname}/../dist`))
