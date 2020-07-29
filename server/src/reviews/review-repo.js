@@ -7,20 +7,17 @@ export default function makeReviewRepo({ reviewModel }) {
     })
 
     async function getByMovie(movieId) {
-        const reviews = await reviewModel.find({ movie: movieId })
+        const reviews = await reviewModel
+            .find({ movie: movieId })
+            .populate('user movie', 'username title')
 
         return reviews
     }
 
     async function getByUser(userId) {
         const reviews = await reviewModel
-            .find({ 
-                user: userId 
-            })
-            .populate(
-                'movie', 
-                'id poster title'
-            )
+            .find({ user: userId })
+            .populate('movie', 'id poster title')
 
         return reviews
     }

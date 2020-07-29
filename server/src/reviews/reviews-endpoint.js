@@ -33,7 +33,8 @@ export default function makeReviewsEndpointHandler({ reviewRepo }) {
     }
 
     async function addReview(req, res) {
-        const { rating, comment, movie, user } = req.body
+        const { rating, comment, movie } = req.body
+        const user = req.user
 
         const reviewData = {
             rating,
@@ -42,7 +43,7 @@ export default function makeReviewsEndpointHandler({ reviewRepo }) {
             user
         }
 
-        const review = await reviewRepo.addReview(reviewData)
+        const review = await reviewRepo.add(reviewData)
 
         if (!review) {
             return res.status(401).json({ success: false, message: 'Error while adding review' })
