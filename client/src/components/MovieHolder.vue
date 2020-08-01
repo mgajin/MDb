@@ -31,9 +31,13 @@
                             <v-icon color=yellow>mdi-star</v-icon>
                             <label>{{ movie.rating }}/10</label>
                         </div>
-                        <div class="d-flex flex-column mr-5">
+                        <div class="d-flex flex-column mr-5" v-if="userReview">
                             <v-icon color=primary>mdi-star</v-icon>
                             <label>8/10</label>
+                        </div>
+                        <div class="d-flex flex-column mr-5" v-if="!userReview">
+                            <v-icon color=white>mdi-star</v-icon>
+                            <label>rate movie</label>
                         </div>
                         <div class="d-flex flex-column mr-5">
                             <span>IMDb</span>
@@ -84,6 +88,6 @@
 <script>
 export default {
     name: 'MovieHolder',
-    props: ['movie']
+    props: ['movie', 'userReview']
 }
 </script>

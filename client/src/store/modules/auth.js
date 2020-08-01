@@ -1,7 +1,7 @@
 import Axios from 'axios'
 
 const state = {
-    user: null,
+    user: window.localStorage.getItem('user'),
     token: window.localStorage.getItem('token'),
     loading: false,
     error: null
@@ -15,6 +15,20 @@ const getters = {
 }
 
 const actions = {
+
+    async GET_USER({ commit }) {
+        const headers = { Authorization: `Bearer ${getters.getToken}` }
+
+        await Axios.get('http://localhost:5000/v1/auth/user', headers)
+        .then(response => {
+            const user = response.data.user
+            commit('set_user', user)
+        })
+        .catch(err => {
+            const message = err.response.data.message
+            alert(message)
+        })
+    },
     
     async SIGN_IN({ commit }, payload) {
         commit('set_loading', true)
@@ -65,13 +79,18 @@ const actions = {
 }
 
 const mutations = {
-    set_user: (state, payload) => state.user = payload,
+    set_user: (state, user) => {
+        state.user = user
+        // const json = JSON.stringify(user) 
+        localStorage.setItem('user', user)
+    },
     set_token: (state, token) => {
         state.token = token
         localStorage.setItem('token', token)
     },
     clear_token: (state) => {
         state.token = null
+        state.user = null
         localStorage.clear()
     },
     set_loading: (state, payload) => state.loading = payload,
