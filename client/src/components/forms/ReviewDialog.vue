@@ -14,12 +14,12 @@
                     </v-col>
                     <v-col cols=12>
                         <v-card-actions>
-                            <v-btn @click="closeDialog" v-text="'cancel'"></v-btn>
                             <v-spacer></v-spacer>
+                            <v-btn @click="closeDialog" v-text="'cancel'"></v-btn>
                             <v-btn @click="submitReview" v-text="'submit'"></v-btn>
                         </v-card-actions>
                     </v-col>
-            </v-row>
+                </v-row>
             </v-container>
         </v-card>
     </v-dialog>

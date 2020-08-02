@@ -81,8 +81,8 @@ const actions = {
 const mutations = {
     set_user: (state, user) => {
         state.user = user
-        // const json = JSON.stringify(user) 
-        localStorage.setItem('user', user)
+        const json = JSON.stringify(user) 
+        localStorage.setItem('user', json)
     },
     set_token: (state, token) => {
         state.token = token

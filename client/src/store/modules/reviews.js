@@ -6,17 +6,18 @@ const state = {
 }
 
 const getters = {
-    getReviews: (state) => state.reviews,
-    getUserReview: (state) => state.userReview
+    getReviews: state => state.reviews,
+    getUserReview: state => state.userReview
 }
 
 const actions = {
 
-    GET_REVIEW({ commit }, user) {
+    GET_REVIEW({ commit }, payload) {
         let review = null
-        getters.reviews.forEach(r => {
-            if (r.user.username == user.username) {
+        payload.reviews.forEach(r => {
+            if (r.user.username == payload.user.username) {
                 review = r
+                // alert(review.rating)
             }
         })
         commit('set_user_review', review)

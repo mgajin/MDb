@@ -1,10 +1,9 @@
 <template>
     <v-container>
-        <MovieHolder :movie="getMovie" :userReview="getUserReview"/>
         <v-row>
             <v-col cols=12>
-                <v-btn @click.stop="showDialog" v-text="'rate movie'"></v-btn>
-                <RateMovieForm :movie="getMovie"/>
+                <MovieHolder :movie="getMovie" :userReview="getUserReview"/>
+                <ReviewDialog :movie="getMovie"/>
             </v-col>
             <v-col cols=12 v-for="review in getReviews" :key="review._id">
                 <v-card>
@@ -19,7 +18,7 @@
 <script>
 
 import MovieHolder from '../components/MovieHolder'
-import RateMovieForm from '../components/forms/RateMovieForm'
+import ReviewDialog from '../components/forms/ReviewDialog'
 import { mapActions, mapGetters } from 'vuex'
 
 export default {
@@ -27,7 +26,7 @@ export default {
     name: 'Movie',
     components: {
         MovieHolder,
-        RateMovieForm
+        ReviewDialog
     },
     methods: {
         ...mapActions(['GET_MOVIE', 'GET_MOVIE_REVIEWS', 'GET_REVIEW']),
@@ -35,11 +34,18 @@ export default {
             this.$store.commit('show_review_dialog')
         }
     },
+    watch: {
+        getReviews: function (value) {
+            if (value.length) {
+                const payload = { reviews: this.getReviews, user: JSON.parse(this.getUser) }
+                this.GET_REVIEW(payload)
+            }
+        }
+    },
+    computed: mapGetters(['getMovie', 'getReviews', 'getUser', 'getUserReview']),
     created() {
         this.GET_MOVIE(this.id)
         this.GET_MOVIE_REVIEWS(this.id)
-        this.GET_REVIEW(this.getUser)
-    },
-    computed: mapGetters(['getMovie', 'getReviews', 'getUser', 'getUserReview', 'getReviewDialog'])
+    }
 }
 </script>

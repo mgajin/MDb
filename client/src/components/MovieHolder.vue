@@ -27,22 +27,36 @@
                         class="hidden-xs-only pa-1"
                     ></v-card-text>
                     <v-card-actions class="hidden-xs-only">
-                        <div class="d-flex flex-column mr-5">
-                            <v-icon color=yellow>mdi-star</v-icon>
-                            <label>{{ movie.rating }}/10</label>
-                        </div>
-                        <div class="d-flex flex-column mr-5" v-if="userReview">
-                            <v-icon color=primary>mdi-star</v-icon>
-                            <label>8/10</label>
-                        </div>
-                        <div class="d-flex flex-column mr-5" v-if="!userReview">
-                            <v-icon color=white>mdi-star</v-icon>
-                            <label>rate movie</label>
-                        </div>
-                        <div class="d-flex flex-column mr-5">
-                            <span>IMDb</span>
-                            <label>{{ movie.imdbRating }}/10</label>
-                        </div>
+                        <v-btn text height=100% class="pa-1">
+                            <div class="d-flex flex-column">
+                                <v-icon color=yellow>mdi-star</v-icon>
+                                <label>{{ movie.rating }}/5</label>
+                            </div>
+                        </v-btn>
+                        <v-btn text height=100% class="pa-1" v-if="userReview">
+                            <div class="d-flex flex-column">
+                                <v-icon color=primary>mdi-star</v-icon>
+                                <label>{{ userReview.rating }}/5</label>
+                            </div>
+                        </v-btn>
+                        <v-btn 
+                            text 
+                            height=100% 
+                            class="pa-1" 
+                            v-if="!userReview"
+                            @click="openDialog"
+                        >
+                            <div class="d-flex flex-column">
+                                <v-icon color=white>mdi-star</v-icon>
+                                <label>0/5</label>
+                            </div>
+                        </v-btn>
+                        <v-btn text height=100% class="pa-1">
+                            <div class="d-flex flex-column">
+                                <span>IMDb</span>
+                                <label>{{ movie.imdbRating }}/10</label>
+                            </div>
+                        </v-btn>
                     </v-card-actions>
                     <v-card-actions class="hidden-xs-only pa-1">
                         <v-btn
@@ -65,19 +79,37 @@
                             color="primary" 
                         ></v-btn>
                     </v-card-actions>
-                    <v-card-actions class="d-flex justify-space-around pa-0 mt-5">
-                        <div class="d-flex flex-column">
-                            <v-icon color=yellow>mdi-star</v-icon>
-                            <label>{{ movie.rating }}/10</label>
-                        </div>
-                        <div class="d-flex flex-column">
-                            <v-icon color=primary>mdi-star</v-icon>
-                            <label>8/10</label>
-                        </div>
-                        <div class="d-flex flex-column">
-                            <span>IMDb</span>
-                            <label>{{ movie.imdbRating }}/10</label>
-                        </div>
+                    <v-card-actions class="d-flex justify-space-around pa-0 mt-4">
+                        <v-btn text height=100% class="pa-1">
+                            <div class="d-flex flex-column">
+                                <v-icon color=yellow>mdi-star</v-icon>
+                                <label>{{ movie.rating }}/5</label>
+                            </div>
+                        </v-btn>
+                        <v-btn text height=100% class="pa-1" v-if="userReview">
+                            <div class="d-flex flex-column">
+                                <v-icon color=primary>mdi-star</v-icon>
+                                <label>{{ userReview.rating }}/5</label>
+                            </div>
+                        </v-btn>
+                        <v-btn 
+                            text 
+                            height=100% 
+                            class="pa-1" 
+                            v-if="!userReview"
+                            @click="openDialog"
+                        >
+                            <div class="d-flex flex-column">
+                                <v-icon color=white>mdi-star</v-icon>
+                                <label>0/5</label>
+                            </div>
+                        </v-btn>
+                        <v-btn text class="pa-1" height=100%>
+                            <div class="d-flex flex-column">
+                                <span>IMDb</span>
+                                <label>{{ movie.imdbRating }}/10</label>
+                            </div>
+                        </v-btn>
                     </v-card-actions>
                 </v-col>
             </v-row>
@@ -88,6 +120,11 @@
 <script>
 export default {
     name: 'MovieHolder',
-    props: ['movie', 'userReview']
+    props: ['movie', 'userReview'],
+    methods: {
+        openDialog() {
+            this.$store.commit('show_review_dialog')
+        }
+    },
 }
 </script>
