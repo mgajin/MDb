@@ -28,8 +28,8 @@ export default function makeReviewRepo({ reviewModel }) {
 
     async function add(reviewData) {
         let review = await reviewModel.findOne({
-            movie: reviewData.movieId,
-            user: reviewData.userId
+            movie: reviewData.movie,
+            user: reviewData.user
         })
         
         if (!review) {

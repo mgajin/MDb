@@ -1,6 +1,6 @@
 import auth from './auth'
 
-export default function makeAuthEndpointHanddler({ userRepo }) {
+export default function makeAuthEndpointHanddler({ userRepo, watchlistRepo }) {
     return Object.freeze({
         login,
         register,
@@ -46,6 +46,11 @@ export default function makeAuthEndpointHanddler({ userRepo }) {
         user = await userRepo.addNew(userData)
         const token = auth.signToken(user._id)
 
+        const watchlist = await watchlistRepo.createWatchlist(user._id)
+        if (!watchlist) {
+            return res.status(501).json({ success: false, message: 'Failed to create watchlist' })
+        }
+
         res.status(201).json({ success: true, token, user })
     }
 
@@ -54,5 +59,4 @@ export default function makeAuthEndpointHanddler({ userRepo }) {
 
         res.status(200).json({ success: true, user })
     }
-
 }

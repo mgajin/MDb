@@ -19,16 +19,17 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 app.use(json())
+app.use(cors)
+app.use(express.static(`${__dirname}/../dist`))
 
 import movieRouter from './movies'
 import authRouter from './auth'
 import reviewRouter from './reviews'
+import { watchlistRouter } from './watchlist/index'
 app.use('/v1/movies', movieRouter)
 app.use('/v1/auth', authRouter)
 app.use('/v1/reviews', reviewRouter)
-
-app.use(cors)
-app.use(express.static(`${__dirname}/../dist`))
+app.use('/v1/watchlist', watchlistRouter)
 
 const server = app.listen(
     PORT,
