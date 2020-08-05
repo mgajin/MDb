@@ -2,11 +2,13 @@ import Axios from 'axios'
 
 const state = {
     reviews: [],
+    userReviews: [],
     userReview: null
 }
 
 const getters = {
     getReviews: state => state.reviews,
+    getUserReviews: state => state.userReviews,
     getUserReview: state => state.userReview
 }
 
@@ -39,10 +41,10 @@ const actions = {
         const headers = { Authorization: `Bearer ${token}` }
         
         await Axios
-        .get('http://localhost:5000/v1/reviews/user', headers)
+        .get('http://localhost:5000/v1/reviews/user', { headers })
         .then(response => {
             const reviews = response.data.reviews
-            commit('set_reviews', reviews)
+            commit('set_user_reviews', reviews)
         })
         .catch(err => {
             const message = err.response.data.message
@@ -73,6 +75,7 @@ const actions = {
 
 const mutations = {
     set_reviews: (state, reviews) => state.reviews = reviews,
+    set_user_reviews: (state, reviews) => state.userReviews = reviews,
     set_user_review: (state, review) => state.userReview = review
 }
 

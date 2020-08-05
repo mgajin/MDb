@@ -23,8 +23,11 @@
                         <v-card-title v-text="'Reviews'" class="headline"></v-card-title>
                         <v-row>
                             <v-col 
-                                cols=12
+                                cols=12 md=6 lg=4
+                                v-for="review in getUserReviews"
+                                :key="review._id"
                             >
+                                <UserReviewCard :review="review" />
                             </v-col>
                         </v-row>
                     </v-container>
@@ -38,15 +41,17 @@
 
 import { mapActions, mapGetters } from 'vuex'
 import MovieCard from '../components/items/MovieCard'
+import UserReviewCard from '../components/items/UserReviewCard'
 
 export default {
     name: 'Profile',
     components: {
-        MovieCard
+        MovieCard,
+        UserReviewCard
     },
-    computed: mapGetters(['getToken', 'getWatchlist']),
+    computed: mapGetters(['getToken', 'getWatchlist', 'getUserReviews']),
     methods: {
-        ...mapActions(['GET_WATCHLIST', 'REMOVE_MOVIE']),
+        ...mapActions(['GET_WATCHLIST', 'REMOVE_MOVIE', 'GET_USER_REVIEWS']),
         removeMovie(movieId) {
             const payload = { token: this.getToken, movieId: movieId }
             this.REMOVE_MOVIE(payload)
@@ -55,7 +60,7 @@ export default {
     created() {
         const token = this.getToken
         this.GET_WATCHLIST(token)
+        this.GET_USER_REVIEWS(token)
     }
-
 }
 </script>
