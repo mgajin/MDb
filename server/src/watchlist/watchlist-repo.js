@@ -40,7 +40,7 @@ export default function makeWatchlistRepo({ watchlistModel }) {
                 watchlist.save()
             }
 
-            return watchlist.populate('movies', 'title')
+            return watchlist.populate('movies', 'title poster')
         } catch (err) {
             console.log(err)
             return null
@@ -59,7 +59,7 @@ export default function makeWatchlistRepo({ watchlistModel }) {
                 }
             })
     
-            return watchlist.populate('movies', 'title')
+            return watchlist.populate('movies', 'title poster')
         } catch (err) {
             console.log(err)
             return null
