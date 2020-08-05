@@ -17,7 +17,6 @@ const actions = {
         payload.reviews.forEach(r => {
             if (r.user.username == payload.user.username) {
                 review = r
-                // alert(review.rating)
             }
         })
         commit('set_user_review', review)

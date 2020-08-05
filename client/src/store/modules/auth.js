@@ -19,7 +19,8 @@ const actions = {
     async GET_USER({ commit }) {
         const headers = { Authorization: `Bearer ${getters.getToken}` }
 
-        await Axios.get('http://localhost:5000/v1/auth/user', headers)
+        await Axios
+        .get('http://localhost:5000/v1/auth/user', headers)
         .then(response => {
             const user = response.data.user
             commit('set_user', user)

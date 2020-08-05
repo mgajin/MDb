@@ -5,6 +5,7 @@ import Movies from '../views/Movies'
 import Movie from '../views/Movie'
 import Login from '../views/Login'
 import Admin from '../views/Admin'
+import Profile from '../views/Profile'
 
 Vue.use(VueRouter)
 
@@ -29,6 +30,11 @@ const routes = [
     path: '/login',
     name: 'login',
     component: Login
+  },
+  {
+    path: '/profile',
+    name: 'profile',
+    component: Profile
   },
   {
     path: '/admin',

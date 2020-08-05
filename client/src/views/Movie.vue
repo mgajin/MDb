@@ -29,10 +29,7 @@ export default {
         ReviewDialog
     },
     methods: {
-        ...mapActions(['GET_MOVIE', 'GET_MOVIE_REVIEWS', 'GET_REVIEW']),
-        showDialog() {
-            this.$store.commit('show_review_dialog')
-        }
+        ...mapActions(['GET_MOVIE', 'GET_MOVIE_REVIEWS', 'GET_REVIEW'])
     },
     watch: {
         getReviews: function (value) {
