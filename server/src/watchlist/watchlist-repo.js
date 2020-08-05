@@ -10,7 +10,7 @@ export default function makeWatchlistRepo({ watchlistModel }) {
         try {
             const watchlist = await watchlistModel
                 .findOne({ user: userId })
-                .populate('movies user', 'title username')
+                .populate('movies user', 'title poster username')
             
             return watchlist
         } catch(err) {
@@ -47,5 +47,22 @@ export default function makeWatchlistRepo({ watchlistModel }) {
         }
     }
 
-    async function removeMovie() {}
+    async function removeMovie(userId, movieId) {
+        try {
+            const watchlist = await watchlistModel.findOne({ user: userId })
+            const { movies } = watchlist
+
+            movies.forEach(movie => {
+                if (movie._id == movieId) {
+                    movies.splice(movies.indexOf(movie), 1)
+                    watchlist.save()
+                }
+            })
+    
+            return watchlist.populate('movies', 'title')
+        } catch (err) {
+            console.log(err)
+            return null
+        }
+    }
 }
