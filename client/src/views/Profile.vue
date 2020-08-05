@@ -27,7 +27,11 @@
                                 v-for="review in getUserReviews"
                                 :key="review._id"
                             >
-                                <UserReviewCard :review="review" />
+                                <ReviewCard 
+                                    :title="review.movie.title"
+                                    :text="review.comment"
+                                    :rating="review.rating"
+                                />
                             </v-col>
                         </v-row>
                     </v-container>
@@ -41,13 +45,18 @@
 
 import { mapActions, mapGetters } from 'vuex'
 import MovieCard from '../components/items/MovieCard'
-import UserReviewCard from '../components/items/UserReviewCard'
+import ReviewCard from '../components/items/ReviewCard'
 
 export default {
     name: 'Profile',
     components: {
         MovieCard,
-        UserReviewCard
+        ReviewCard
+    },
+    watch: {
+        getWatchlist: function () {
+            this.GET_WATCHLIST(this.getToken)
+        }
     },
     computed: mapGetters(['getToken', 'getWatchlist', 'getUserReviews']),
     methods: {

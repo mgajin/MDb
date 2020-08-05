@@ -63,6 +63,7 @@
                             block
                             v-text="'save to watchlist'"
                             color="primary"
+                            @click="saveToWatchlist"
                         ></v-btn>
                     </v-card-actions>
                 </v-col>
@@ -77,6 +78,7 @@
                             block
                             v-text="'save to watchlist'"
                             color="primary" 
+                            @click="saveToWatchlist"
                         ></v-btn>
                     </v-card-actions>
                     <v-card-actions class="d-flex justify-space-around pa-0 mt-4">
@@ -118,12 +120,21 @@
 </template>
 
 <script>
+
+import { mapActions, mapGetters } from 'vuex'
+
 export default {
     name: 'MovieHolder',
     props: ['movie', 'userReview'],
+    computed: mapGetters(['getToken']),
     methods: {
+        ...mapActions(['INSERT_MOVIE']),
         openDialog() {
             this.$store.commit('show_review_dialog')
+        },
+        saveToWatchlist() {
+            const payload = { token: this.getToken, movieId: this.movie._id }
+            this.INSERT_MOVIE(payload)
         }
     },
 }

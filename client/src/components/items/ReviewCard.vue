@@ -1,10 +1,10 @@
 <template>
     <v-card height=100% class="d-flex flex-column">
-        <v-card-title v-text="review.movie.title"></v-card-title>
-        <v-card-text v-text="review.comment"></v-card-text>
+        <v-card-title v-text="title"></v-card-title>
+        <v-card-text v-text="text"></v-card-text>
         <v-rating
             align=end 
-            v-model=review.rating 
+            v-model=rating 
             length=5 
             readonly
             small
@@ -14,8 +14,8 @@
 
 <script>
 export default {
-    name: 'UserReviewCard',
-    props: ['review']
+    name: 'ReviewCard',
+    props: ['title', 'text', 'rating']
 }
 </script>
 
