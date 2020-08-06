@@ -5,42 +5,35 @@ export default function makeImdbApi({ axios }) {
     })
 
     async function searchMovie(search) {
-        const response = await axios.get(`https://${process.env.API_URL}`, {
-                headers: {
-                    'content-type': 'application/octet-stream',
-                    'x-rapidapi-host': `${process.env.API_URL}`,
-                    'x-rapidapi-key': `${process.env.API_KEY}`
-                },
-                params: {
-                    r: 'json',
-                    s: search
-                }
-            })
-            .catch(error => {
-                console.log(error)
-            })
-    
-        return response.data.Search
+        const params = { r: 'json', s: search }
+        const response = await fetch(params)
+
+        if (response) return response.Search
+
+        return null
     }
 
     async function fetchMovie(id) {
-        const response = await axios
-            .get(`https://${process.env.API_URL}`, {
-                headers: {
-                    'content-type': 'application/octet-stream',
-                    'x-rapidapi-host': `${process.env.API_URL}`,
-                    'x-rapidapi-key': `${process.env.API_KEY}`
-                },
-                params: {
-                    i: id,
-                    r: 'json'
-                }
-            })
-            .catch(error => {
-                console.log(error)
-            })
-    
-        return response.data
+        const params = { i: id, r: 'json' }
+        const response = await fetch(params)
+
+        return response
     }
-        
+    
+    async function fetch(params) {
+        let res = null
+
+        const url = `https://${process.env.API_URL}`
+        const headers = {
+            'content-type': 'application/octet-stream',
+            'x-rapidapi-host': `${process.env.API_URL}`,
+            'x-rapidapi-key': `${process.env.API_KEY}`
+        }
+
+        await axios.get(url, { headers, params })
+            .then( response => res = response.data )
+            .catch( err => console.log(err) )
+
+        return res
+    }
 }
