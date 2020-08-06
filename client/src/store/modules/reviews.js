@@ -1,4 +1,5 @@
 import Axios from 'axios'
+const URL = 'http://localhost:5000/v1/reviews'
 
 const state = {
     reviews: [],
@@ -26,30 +27,30 @@ const actions = {
 
     async GET_MOVIE_REVIEWS({ commit }, movieId) {
         await Axios
-        .get(`http://localhost:5000/v1/reviews/movie/${movieId}`)
-        .then(response => {
-            const reviews = response.data.reviews
-            commit('set_reviews', reviews)
-        })
-        .catch(err => {
-            const message = err.response.data.message
-            alert(message)
-        })
+            .get(`${URL}/movie/${movieId}`)
+            .then(response => {
+                const { reviews } = response.data
+                commit('set_reviews', reviews)
+            })
+            .catch(err => {
+                const { message } = err.response.data
+                alert(message)
+            })
     },
 
     async GET_USER_REVIEWS({ commit }, token) {
         const headers = { Authorization: `Bearer ${token}` }
         
         await Axios
-        .get('http://localhost:5000/v1/reviews/user', { headers })
-        .then(response => {
-            const reviews = response.data.reviews
-            commit('set_user_reviews', reviews)
-        })
-        .catch(err => {
-            const message = err.response.data.message
-            alert(message)
-        })
+            .get(`${URL}/user`, { headers })
+            .then(response => {
+                const { reviews } = response.data
+                commit('set_user_reviews', reviews)
+            })
+            .catch(err => {
+                const { message } = err.response.data
+                alert(message)
+            })
     },
 
     async ADD_REVIEW({ commit }, payload) {
@@ -61,15 +62,15 @@ const actions = {
         const headers = { Authorization: `Bearer ${payload.token}` }
 
         await Axios
-        .post('http://localhost:5000/v1/reviews', body, { headers })
-        .then(response => {
-            const review = response.data.review
-            commit('set_user_review', review)
-        })
-        .catch(err => {
-            const message = err.response.data.message
-            alert(message)
-        })
+            .post(URL, body, { headers })
+            .then(response => {
+                const { review } = response.data
+                commit('set_user_review', review)
+            })
+            .catch(err => {
+                const { message } = err.response.data
+                alert(message)
+            })
     }
 }
 

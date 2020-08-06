@@ -1,4 +1,5 @@
 import Axios from 'axios'
+const URL = 'http://localhost:5000/v1/auth'
 
 const state = {
     user: window.localStorage.getItem('user'),
@@ -20,15 +21,15 @@ const actions = {
         const headers = { Authorization: `Bearer ${getters.getToken}` }
 
         await Axios
-        .get('http://localhost:5000/v1/auth/user', headers)
-        .then(response => {
-            const user = response.data.user
-            commit('set_user', user)
-        })
-        .catch(err => {
-            const message = err.response.data.message
-            alert(message)
-        })
+            .get(`${URL}/user`, headers)
+            .then(response => {
+                const { user } = response.data
+                commit('set_user', user)
+            })
+            .catch(err => {
+                const { message } = err.response.data
+                alert(message)
+            })
     },
     
     async SIGN_IN({ commit }, payload) {
@@ -36,21 +37,18 @@ const actions = {
         commit('clear_error')
 
         await Axios
-        .post('http://localhost:5000/v1/auth/login', {
-            username: payload.username,
-            password: payload.password
-        })
-        .then(response => {
-            commit('set_loading', false)
-            const { user, token } = response.data
-            commit('set_user', user)
-            commit('set_token', token)
-        })
-        .catch(err => {
-            commit('set_loading', false)
-            const message = err.response.data.message
-            commit('set_error', message)
-        })
+            .post(`${URL}/login`, payload)
+            .then(response => {
+                const { user, token } = response.data
+                commit('set_loading', false)
+                commit('set_user', user)
+                commit('set_token', token)
+            })
+            .catch(err => {
+                const { message } = err.response.data
+                commit('set_loading', false)
+                commit('set_error', message)
+            })
     },
 
     async SIGN_UP({ commit }, payload) {
@@ -58,24 +56,18 @@ const actions = {
         commit('clear_error')
 
         await Axios
-        .post('http://localhost:5000/v1/auth/register', {
-            firstName: payload.firstName,
-            lastName: payload.lastName,
-            username: payload.username,
-            password: payload.password,
-            confirmPassword: payload.confirmPassword
-        })
-        .then(response => {
-            commit('set_loading', false)
-            const { user, token } = response.data
-            commit('set_user', user)
-            commit('set_token', token)
-        })
-        .catch(err => {
-            commit('set_loading', false)
-            const message = err.response.data.message
-            commit('set_error', message) 
-        })
+            .post(`${URL}/register`, payload)
+            .then(response => {
+                const { user, token } = response.data
+                commit('set_loading', false)
+                commit('set_user', user)
+                commit('set_token', token)
+            })
+            .catch(err => {
+                const { message } = err.response.data
+                commit('set_loading', false)
+                commit('set_error', message) 
+            })
     }
 }
 
@@ -89,14 +81,14 @@ const mutations = {
         state.token = token
         localStorage.setItem('token', token)
     },
-    clear_token: (state) => {
+    clear_token: state => {
         state.token = null
         state.user = null
         localStorage.clear()
     },
     set_loading: (state, payload) => state.loading = payload,
     set_error: (state, payload) => state.error = payload,
-    clear_error: (state) => state.error = null
+    clear_error: state => state.error = null
 }
 
 export default {

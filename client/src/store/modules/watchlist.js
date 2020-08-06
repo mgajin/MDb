@@ -1,4 +1,5 @@
 import Axios from 'axios'
+const URL = 'http://localhost:5000/v1/watchlist'
 
 const state = {
     watchlist: {}
@@ -13,13 +14,14 @@ const actions = {
     async GET_WATCHLIST({ commit }, token) {
         const headers = { Authorization: `Bearer ${token}` }
 
-        await Axios.get('http://localhost:5000/v1/watchlist', { headers })
+        await Axios
+            .get(URL, { headers })
             .then(response => {
-                const watchlist = response.data.watchlist
+                const { watchlist } = response.data
                 commit('set_watchlist', watchlist)
             })
             .catch(err => {
-                const message = err.response.data.message
+                const { message } = err.response.data
                 alert(message)
             })
     },
@@ -28,13 +30,14 @@ const actions = {
         const headers = { Authorization: `Bearer ${payload.token}` }
         const body = { movieId: payload.movieId }
 
-        await Axios.put('http://localhost:5000/v1/watchlist/insert', body, { headers })
+        await Axios
+            .put(`${URL}/insert`, body, { headers })
             .then(response => {
-                const watchlist = response.data.watchlist
+                const { watchlist } = response.data
                 commit('set_watchlist', watchlist)
             })
             .catch(err => {
-                const message = err.response.data.message
+                const { message } = err.response.data
                 alert(message)
             })
     },
@@ -43,13 +46,14 @@ const actions = {
         const headers = { Authorization: `Bearer ${payload.token}` }
         const body = { movieId: payload.movieId }
 
-        await Axios.put('http://localhost:5000/v1/watchlist/remove', body, { headers })
+        await Axios
+            .put(`${URL}/remove`, body, { headers })
             .then(response => {
-                const watchlist = response.data.watchlist
+                const { watchlist } = response.data
                 commit('set_watchlist', watchlist)
             })
             .catch(err => {
-                const message = err.response.data.message
+                const { message } = err.response.data
                 alert(message)
             })
     }

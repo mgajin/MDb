@@ -54,9 +54,9 @@ export default {
         ReviewCard
     },
     watch: {
-        getWatchlist: function () {
-            this.GET_WATCHLIST(this.getToken)
-        }
+        // getWatchlist: function () {
+        //     this.GET_WATCHLIST(this.getToken)
+        // }
     },
     computed: mapGetters(['getToken', 'getWatchlist', 'getUserReviews']),
     methods: {
