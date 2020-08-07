@@ -19,10 +19,8 @@ const actions = {
         await Axios
             .get(URL)
             .then(response => {
-                if (response.data.success) {
-                    const { movies } = response.data
-                    commit('set_movies', movies)
-                }
+                const { movies } = response.data
+                commit('set_movies', movies)
             })
             .catch(err => {
                 const { message } = err.response.data
@@ -34,10 +32,8 @@ const actions = {
         await Axios
             .get(`${URL}/${id}`)
             .then(response => {
-                if (response.data.success) {
-                    const { movie } = response.data
-                    commit('set_movie', movie)
-                }
+                const { movie } = response.data
+                commit('set_movie', movie)
             })
             .catch(err => {
                 const { message } = err.response.data

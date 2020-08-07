@@ -13,7 +13,7 @@
                             block 
                             color="primary--text"  
                             v-text="'see movie'"
-                            @click="moviePage(movie._id)"
+                            @click="getMovie(movie._id)"
                         ></v-btn>
                     </v-card-actions>
                 </v-card>
@@ -31,9 +31,9 @@ export default {
     props: ['movies', 'btnText'],
     methods: {
         ...mapActions(['GET_MOVIE']),
-        async moviePage(id) {
-            await this.GET_MOVIE(id)
-            this.$router.push(`/movies/${id}`)
+        async getMovie(movieId) {
+            await this.GET_MOVIE(movieId)
+            this.$router.push(`/movies/${movieId}`)
         }
     }
 }
