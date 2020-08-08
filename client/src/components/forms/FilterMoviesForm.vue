@@ -35,27 +35,45 @@ export default {
     data() {
         return {
             search: '',
-            genre: ''
+            genre: '',
+        }
+    },
+    computed: {
+        ...mapGetters(['getGenres']),
+        query: function () {
+            if (this.genre != '') {
+                return `?genre=${this.genre}`
+            } else if (this.search != '') {
+                return `?title=${this.search}`
+            } else {
+                return ''
+            }
         }
     },
     watch: {
-        genre: function(value) {
-            this.getByGenre(value)
+        genre: function (value) {
+            if (value != '') {
+                this.search = ''
+                this.GET_MOVIES(this.query)
+            }
+        },
+        query: function (value) {
+            if (value == '') {
+                this.GET_MOVIES()
+            }
         }
     },
-    computed: mapGetters(['getGenres']),
     methods: {
-        ...mapActions(['SEARCH_MOVIES', 'FILTER_MOVIES']),
+        ...mapActions(['GET_MOVIES']),
         searchMovie(e) {
             e.preventDefault()
-            this.SEARCH_MOVIES(this.search)
             this.genre = ''
-        },
-        getByGenre(genre) {
-            this.FILTER_MOVIES(genre)
-            this.search = ''
+            if (this.query != '') {
+                this.GET_MOVIES(this.query)
+            }
         },
         clearFilter() {
+            this.search = ''
             this.genre = ''
         }
     }

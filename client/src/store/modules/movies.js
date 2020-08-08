@@ -29,9 +29,9 @@ const getters = {
 
 const actions = {
 
-    async GET_MOVIES({ commit }) {
+    async GET_MOVIES({ commit }, query = '') {
         await Axios
-            .get(URL)
+            .get(URL+query)
             .then(response => {
                 const { movies } = response.data
                 commit('set_movies', movies)
