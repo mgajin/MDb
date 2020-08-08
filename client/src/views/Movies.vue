@@ -1,6 +1,12 @@
 <template>
     <v-container>
         <v-row>
+            <v-col cols=12 class="pa-0">
+                <FilterMoviesForm />
+            </v-col>
+        </v-row>
+        <!-- <v-divider class="ma-5"></v-divider> -->
+        <v-row>
             <v-col
                 class="pa-1"
                 cols=4 md=3 lg=2 
@@ -16,11 +22,13 @@
 <script>
 
 import { mapActions, mapGetters } from 'vuex'
+import FilterMoviesForm from '../components/forms/FilterMoviesForm'
 import MovieHoverCard from '../components/items/MovieHoverCard'
 
 export default {
     name: 'Movies',
     components: {
+        FilterMoviesForm,
         MovieHoverCard
     },
     computed: mapGetters(['getMovies']),

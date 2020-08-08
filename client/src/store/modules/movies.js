@@ -4,13 +4,27 @@ const URL = 'http://localhost:5000/v1/movies'
 const state = {
     movies: [],
     imdbMovies: [],
-    movie: {}
+    movie: {},
+    genres: [
+        'Action', 
+        'Sci-Fi', 
+        'Comedy', 
+        'Thriller', 
+        'Crime', 
+        'Drama', 
+        'Mystery', 
+        'Horror', 
+        'Adventure', 
+        'Fantasy', 
+        'Western'
+    ]
 }
 
 const getters = {
     getMovies: state => state.movies,
     getImdbMovies: state => state.imdbMovies,
-    getMovie: state => state.movie
+    getMovie: state => state.movie,
+    getGenres: state => state.genres
 }
 
 const actions = {
@@ -18,6 +32,32 @@ const actions = {
     async GET_MOVIES({ commit }) {
         await Axios
             .get(URL)
+            .then(response => {
+                const { movies } = response.data
+                commit('set_movies', movies)
+            })
+            .catch(err => {
+                const { message } = err.response.data
+                alert(message)
+            })
+    },
+
+    async FILTER_MOVIES({ commit }, genre) {
+        await Axios
+            .get(`${URL}?genre=${genre}`)
+            .then(response => {
+                const { movies } = response.data
+                commit('set_movies', movies)
+            })
+            .catch(err => {
+                const { message } = err.response.data
+                alert(message)
+            })
+    },
+
+    async SEARCH_MOVIES({ commit }, title) {
+        await Axios
+            .get(`${URL}?title=${title}`)
             .then(response => {
                 const { movies } = response.data
                 commit('set_movies', movies)
