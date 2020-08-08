@@ -7,35 +7,57 @@ export default function makeReviewRepo({ reviewModel }) {
     })
 
     async function getByMovie(movieId) {
-        const reviews = await reviewModel
-            .find({ movie: movieId })
-            .populate('user movie', 'username title')
+        try {
+            const reviews = await reviewModel
+                .find({ movie: movieId })
+                .populate('user movie', 'username title')
 
-        return reviews
+            return reviews
+        } catch (err) {
+            console.error(err)
+            return null
+        }
     }
 
     async function getByUser(userId) {
-        const reviews = await reviewModel
-            .find({ user: userId })
-            .populate('movie', 'id poster title')
+        try {
+            const reviews = await reviewModel
+                .find({ user: userId })
+                .populate('movie', 'id poster title')
 
-        return reviews
+            return reviews
+        } catch (err) {
+            console.error(err)
+            return null
+        }
     }
 
     async function getAll() {
-        return await reviewModel.find()
+        try {
+            const reviews = await reviewModel.find()
+
+            return reviews
+        } catch (err) {
+            console.error(err)
+            return null
+        }
     }
 
     async function add(reviewData) {
-        let review = await reviewModel.findOne({
-            movie: reviewData.movie,
-            user: reviewData.user
-        })
-        
-        if (!review) {
-            review = await reviewModel.create(reviewData)
+        try {
+            let review = await reviewModel.findOne({
+                movie: reviewData.movie,
+                user: reviewData.user
+            })
+            
+            if (!review) {
+                review = await reviewModel.create(reviewData)
+            }
+    
+            return review
+        } catch (err) {
+            console.error(err)
+            return null
         }
-
-        return review
     }
 }

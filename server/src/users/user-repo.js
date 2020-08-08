@@ -6,22 +6,41 @@ export default function makeUserRepo({ userModel }) {
     })
 
     async function getByUsername(username) {
-        return await userModel
-            .findOne({ username })
-            .select('+password')
+        try {
+            const user = await userModel
+                .findOne({ username })
+                .select('+password')
+
+            return user
+        } catch (err) {
+            console.error(err)
+            return null
+        }
     }
 
     async function getById(id) {
-        return await userModel.findById(id)
+        try {
+            const user = await userModel.findById(id)
+
+            return user
+        } catch (err) {
+            console.error(err)
+            return null
+        }
     }
 
     async function addNew(userData) {
-        let user = await userModel.findOne({ username: userData.username })
+        try {
+            let user = await userModel.findOne({ username: userData.username })
 
-        if (!user) {
-            user = await userModel.create(userData)
+            if (!user) {
+                user = await userModel.create(userData)
+            }
+
+            return user
+        } catch (err) {
+            console.error(err)
+            return null
         }
-
-        return user
     }
 }

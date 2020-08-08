@@ -9,12 +9,13 @@ export default function makeMoviesEndpointHandler({ movieRepo, imdbApi }) {
     })
 
     async function getMovies(req, res) {
+        const { query } = req
         let movies
 
-        if (req.query.genre) {
-            movies = await movieRepo.getByGenre(req.query.genre)
-        } else if (req.query.title) {
-            movies = await movieRepo.getByTitle(req.query.title)
+        if (query.genre) {
+            movies = await movieRepo.getByGenre(query.genre)
+        } else if (query.title) {
+            movies = await movieRepo.getByTitle(query.title)
         } else {
             movies = await movieRepo.getAll()
         }

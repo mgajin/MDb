@@ -14,7 +14,7 @@ export default function makeWatchlistRepo({ watchlistModel }) {
             
             return watchlist
         } catch(err) {
-            console.log(err)
+            console.error(err)
             return null
         }
     }
@@ -24,8 +24,8 @@ export default function makeWatchlistRepo({ watchlistModel }) {
             const watchlist = await watchlistModel.create({ user: userId })
 
             return watchlist
-        } catch(err) {
-            console.log(err)
+        } catch (err) {
+            console.error(err)
             return null
         }
     }
@@ -45,7 +45,7 @@ export default function makeWatchlistRepo({ watchlistModel }) {
 
             return watchlist
         } catch (err) {
-            console.log(err)
+            console.error(err)
             return null
         }
     }
@@ -67,7 +67,7 @@ export default function makeWatchlistRepo({ watchlistModel }) {
     
             return watchlist
         } catch (err) {
-            console.log(err)
+            console.error(err)
             return null
         }
     }

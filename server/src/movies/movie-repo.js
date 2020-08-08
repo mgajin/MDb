@@ -8,45 +8,69 @@ export default function makeMovieRepo({ movieModel }) {
     })
 
     async function add(movieData) {
+        try {
+            let movie = await movieModel.findOne({ title: movieData.title })
 
-        let movie = await movieModel.findOne({ title: movieData.title })
-
-        if (!movie) {
-            movie = await movieModel.create(movieData)
+            if (!movie) {
+                movie = await movieModel.create(movieData)
+            }
+    
+            return movie
+        } catch (err) {
+            console.error(err)
+            return null   
         }
-
-        return movie
     }
 
     async function getAll() {
-        const movies = await movieModel.find()
+        try {
+            const movies = await movieModel.find()
 
-        return movies
+            return movies
+        } catch (err) {
+            console.error(err)
+            return null
+        }
     }
 
     async function getById(id) {
-        const movie = await movieModel.findById(id)
+        try {
+            const movie = await movieModel.findById(id)
 
-        return movie
+            return movie
+        } catch (err) {
+            console.error(err)
+            return null        
+        }
     }
 
     async function getByTitle(title) {
-        const movies = await movieModel.find()
+        try {
+            const movies = await movieModel.find()
         
-        const filtered = movies.filter(movie => {
-            return movie.title.includes(title)
-        })
-    
-        return filtered
+            const filtered = movies.filter(movie => {
+                return movie.title.includes(title)
+            })
+        
+            return filtered
+        } catch (err) {
+            console.error(err)
+            return null
+        }
     }
 
     async function getByGenre(genre) {
-        const movies = await movieModel.find()
+        try {
+            const movies = await movieModel.find()
         
-        const filtered = movies.filter(movie => {
-            return movie.genre.includes(genre)
-        })
-    
-        return filtered
+            const filtered = movies.filter(movie => {
+                return movie.genre.includes(genre)
+            })
+        
+            return filtered
+        } catch (err) {
+            console.error(err)
+            return null
+        }
     }
 }
