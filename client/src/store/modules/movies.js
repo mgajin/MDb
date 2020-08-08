@@ -42,32 +42,6 @@ const actions = {
             })
     },
 
-    async FILTER_MOVIES({ commit }, genre) {
-        await Axios
-            .get(`${URL}?genre=${genre}`)
-            .then(response => {
-                const { movies } = response.data
-                commit('set_movies', movies)
-            })
-            .catch(err => {
-                const { message } = err.response.data
-                alert(message)
-            })
-    },
-
-    async SEARCH_MOVIES({ commit }, title) {
-        await Axios
-            .get(`${URL}?title=${title}`)
-            .then(response => {
-                const { movies } = response.data
-                commit('set_movies', movies)
-            })
-            .catch(err => {
-                const { message } = err.response.data
-                alert(message)
-            })
-    },
-
     async GET_MOVIE({ commit }, id) {
         await Axios
             .get(`${URL}/${id}`)
