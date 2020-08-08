@@ -54,9 +54,11 @@ export default {
         ReviewCard
     },
     watch: {
-        // getWatchlist: function () {
-        //     this.GET_WATCHLIST(this.getToken)
-        // }
+        getToken: function (value) {
+            if (!value) {
+                this.$router.push('/')
+            }
+        }
     },
     computed: mapGetters(['getToken', 'getWatchlist', 'getUserReviews']),
     methods: {
@@ -68,8 +70,13 @@ export default {
     },
     created() {
         const token = this.getToken
-        this.GET_WATCHLIST(token)
-        this.GET_USER_REVIEWS(token)
+
+        if (!token) {
+            this.$router.push('/login')
+        } else {
+            this.GET_WATCHLIST(token)
+            this.GET_USER_REVIEWS(token)
+        }
     }
 }
 </script>
