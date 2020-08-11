@@ -13,15 +13,13 @@
             </v-col>
         </v-row>
         <v-row>
-            <v-col cols=12>
-                <h3>Movies found: {{ getImdbMovies.length }}</h3>
-            </v-col>
-            <v-col
-                cols=6 sm=4 md=3 lg=2 
+            <v-col 
+                cols=12
+                md=6
                 v-for="movie in getImdbMovies" 
-                :key="movie.imdbId"
+                :key="movie._id"
             >
-                <MovieCard :movie="movie" :btnText="'add movie'" @action="addMovie(movie)"/>
+                <MovieWideCard :movie="movie" @action="addMovie(movie)"/>
             </v-col>
         </v-row>
     </v-container>
@@ -29,7 +27,7 @@
 
 <script>
 
-import MovieCard from '../components/items/MovieCard'
+import MovieWideCard from '../components/items/MovieWideCard'
 import { mapActions, mapGetters } from 'vuex'
 
 export default {
@@ -40,7 +38,7 @@ export default {
         }
     },
     components: {
-        MovieCard
+        MovieWideCard
     },
     computed: mapGetters(['getImdbMovies', 'getToken']),
     methods: {
