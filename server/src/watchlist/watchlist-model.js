@@ -1,19 +1,19 @@
-import mongoose from 'mongoose' 
+import mongoose from 'mongoose'
 
 const watchlist = {
     user: {
         type: mongoose.Schema.ObjectId,
         ref: 'User',
         required: true,
-        unique: true
+        unique: true,
     },
     movies: {
         type: Array({
             type: mongoose.Schema.ObjectId,
-            ref: 'Movie'
+            ref: 'Movie',
         }),
-        default: []
-    }
+        default: [],
+    },
 }
 
 const watchlistSchema = new mongoose.Schema(watchlist)

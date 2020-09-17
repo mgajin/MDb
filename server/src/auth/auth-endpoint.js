@@ -4,7 +4,7 @@ export default function makeAuthEndpointHanddler({ userRepo, watchlistRepo }) {
     return Object.freeze({
         login,
         register,
-        getUser
+        getUser,
     })
 
     async function login(req, res) {
@@ -12,11 +12,15 @@ export default function makeAuthEndpointHanddler({ userRepo, watchlistRepo }) {
 
         const user = await userRepo.getByUsername(username)
         if (!user) {
-            return res.status(404).json({ success: false, message: 'User not found' })
+            return res
+                .status(404)
+                .json({ success: false, message: 'User not found' })
         }
 
         if (!auth.correct(password, user.password)) {
-            return res.status(500).json({ success: false, message: 'Wrong password' })
+            return res
+                .status(500)
+                .json({ success: false, message: 'Wrong password' })
         }
 
         const token = auth.signToken(user._id)
@@ -25,22 +29,32 @@ export default function makeAuthEndpointHanddler({ userRepo, watchlistRepo }) {
     }
 
     async function register(req, res) {
-        const { firstName, lastName, username, password, confirmPassword } = req.body
+        const {
+            firstName,
+            lastName,
+            username,
+            password,
+            confirmPassword,
+        } = req.body
 
         if (!auth.matching(password, confirmPassword)) {
-            return res.status(500).json({ success: false, message: 'Passwords do not match' })
+            return res
+                .status(500)
+                .json({ success: false, message: 'Passwords do not match' })
         }
 
         let user = await userRepo.getByUsername(username)
         if (user) {
-            return res.status(500).json({ success: false, message: 'Username already exists' })
+            return res
+                .status(500)
+                .json({ success: false, message: 'Username already exists' })
         }
 
-        const userData = { 
+        const userData = {
             firstName,
             lastName,
-            username, 
-            password: auth.hashed(password) 
+            username,
+            password: auth.hashed(password),
         }
 
         user = await userRepo.addNew(userData)
@@ -48,7 +62,9 @@ export default function makeAuthEndpointHanddler({ userRepo, watchlistRepo }) {
 
         const watchlist = await watchlistRepo.createWatchlist(user._id)
         if (!watchlist) {
-            return res.status(501).json({ success: false, message: 'Failed to create watchlist' })
+            return res
+                .status(501)
+                .json({ success: false, message: 'Failed to create watchlist' })
         }
 
         res.status(201).json({ success: true, token, user })

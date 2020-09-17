@@ -7,13 +7,13 @@ import watchlist from './modules/watchlist'
 import utils from './modules/utils'
 
 Vue.use(Vuex)
- 
+
 export default new Vuex.Store({
-  modules: {
-    movies,
-    reviews,
-    watchlist,
-    auth,
-    utils
-  }
+    modules: {
+        movies,
+        reviews,
+        watchlist,
+        auth,
+        utils,
+    },
 })

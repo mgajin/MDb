@@ -3,14 +3,16 @@ export default function makeReviewsEndpointHandler({ reviewRepo }) {
         getMovieReviews,
         getUserReviews,
         getAllReviews,
-        addReview
+        addReview,
     })
 
     async function getMovieReviews(req, res) {
         const { id } = req.params
 
         if (!id) {
-            return res.status(401).json({ success: false, message: 'ID required' })
+            return res
+                .status(401)
+                .json({ success: false, message: 'ID required' })
         }
 
         const reviews = await reviewRepo.getByMovie(id)
@@ -20,7 +22,7 @@ export default function makeReviewsEndpointHandler({ reviewRepo }) {
 
     async function getUserReviews(req, res) {
         const user = req.user
-        
+
         const reviews = await reviewRepo.getByUser(user.id)
 
         return res.status(200).json({ success: true, reviews })
@@ -40,13 +42,15 @@ export default function makeReviewsEndpointHandler({ reviewRepo }) {
             rating,
             comment,
             movie,
-            user
+            user,
         }
 
         const review = await reviewRepo.add(reviewData)
 
         if (!review) {
-            return res.status(401).json({ success: false, message: 'Error while adding review' })
+            return res
+                .status(401)
+                .json({ success: false, message: 'Error while adding review' })
         }
 
         return res.status(201).json({ success: true, review })

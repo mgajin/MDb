@@ -3,8 +3,8 @@
 </template>
 
 <script>
-export default {
-    name: 'MovieHolderButton',
-    props: ['btnText']
-}
+    export default {
+        name: "MovieHolderButton",
+        props: ["btnText"],
+    };
 </script>

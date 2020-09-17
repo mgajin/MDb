@@ -8,9 +8,12 @@ const router = Router()
 
 const watchlistRepo = makeWatchlistRepo({ watchlistModel })
 const watchlistEndpointHandler = makeWatchlistEndpointHandler({ watchlistRepo })
-const watchlistRouter = makeWatchlistRouter({ router, watchlistEndpointHandler })
+const watchlistRouter = makeWatchlistRouter({
+    router,
+    watchlistEndpointHandler,
+})
 
-module.exports = { 
+module.exports = {
     watchlistRouter,
-    watchlistRepo
+    watchlistRepo,
 }

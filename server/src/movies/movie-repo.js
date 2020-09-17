@@ -4,7 +4,7 @@ export default function makeMovieRepo({ movieModel }) {
         getAll,
         getById,
         getByTitle,
-        getByGenre
+        getByGenre,
     })
 
     async function add(movieData) {
@@ -14,11 +14,11 @@ export default function makeMovieRepo({ movieModel }) {
             if (!movie) {
                 movie = await movieModel.create(movieData)
             }
-    
+
             return movie
         } catch (err) {
             console.error(err)
-            return null   
+            return null
         }
     }
 
@@ -40,18 +40,18 @@ export default function makeMovieRepo({ movieModel }) {
             return movie
         } catch (err) {
             console.error(err)
-            return null        
+            return null
         }
     }
 
     async function getByTitle(title) {
         try {
             const movies = await movieModel.find()
-        
-            const filtered = movies.filter(movie => {
+
+            const filtered = movies.filter((movie) => {
                 return movie.title.includes(title)
             })
-        
+
             return filtered
         } catch (err) {
             console.error(err)
@@ -62,11 +62,11 @@ export default function makeMovieRepo({ movieModel }) {
     async function getByGenre(genre) {
         try {
             const movies = await movieModel.find()
-        
-            const filtered = movies.filter(movie => {
+
+            const filtered = movies.filter((movie) => {
                 return movie.genre.includes(genre)
             })
-        
+
             return filtered
         } catch (err) {
             console.error(err)

@@ -1,11 +1,11 @@
 <template>
-    <v-footer> 
+    <v-footer>
         &copy; Marko Gajin
     </v-footer>
 </template>
 
 <script>
-export default {
-    name: 'TheFooter'
-}
+    export default {
+        name: "TheFooter",
+    };
 </script>

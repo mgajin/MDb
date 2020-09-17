@@ -1,12 +1,12 @@
 const mapImdbMovies = (movies) => {
-    return movies.map(movie => mapMovie(movie))
+    return movies.map((movie) => mapMovie(movie))
 }
 
 const mapMovie = (movie) => {
     return Object.freeze({
         title: movie.Title,
         imdbId: movie.imdbID,
-        poster: movie.Poster
+        poster: movie.Poster,
     })
 }
 
@@ -18,11 +18,11 @@ const makeMovie = (movieData) => {
         plot: movieData.Plot,
         imdbRating: movieData.imdbRating,
         poster: movieData.Poster,
-        production: movieData.Production
+        production: movieData.Production,
     })
 }
 
 module.exports = {
     mapImdbMovies,
-    makeMovie
+    makeMovie,
 }

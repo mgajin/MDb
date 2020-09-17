@@ -18,7 +18,9 @@ const decoded = (token) => {
 }
 
 const signToken = (userId) => {
-    return jwt.sign({ id: userId }, process.env.JWT_SECRET, { expiresIn: 86400 })
+    return jwt.sign({ id: userId }, process.env.JWT_SECRET, {
+        expiresIn: 86400,
+    })
 }
 
 module.exports = {
@@ -26,5 +28,5 @@ module.exports = {
     hashed,
     correct,
     decoded,
-    signToken
+    signToken,
 }

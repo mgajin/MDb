@@ -3,7 +3,7 @@ export default function makeReviewRepo({ reviewModel }) {
         add,
         getByMovie,
         getByUser,
-        getAll
+        getAll,
     })
 
     async function getByMovie(movieId) {
@@ -47,13 +47,13 @@ export default function makeReviewRepo({ reviewModel }) {
         try {
             let review = await reviewModel.findOne({
                 movie: reviewData.movie,
-                user: reviewData.user
+                user: reviewData.user,
             })
-            
+
             if (!review) {
                 review = await reviewModel.create(reviewData)
             }
-    
+
             return review
         } catch (err) {
             console.error(err)

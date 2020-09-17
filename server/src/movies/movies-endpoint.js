@@ -5,7 +5,7 @@ export default function makeMoviesEndpointHandler({ movieRepo, imdbApi }) {
         getMovies,
         getMovie,
         addMovie,
-        searchImdb
+        searchImdb,
     })
 
     async function getMovies(req, res) {
@@ -21,15 +21,17 @@ export default function makeMoviesEndpointHandler({ movieRepo, imdbApi }) {
         }
 
         if (!movies) {
-            return res.status(404).json({ success: false, message: 'Not found' })
+            return res
+                .status(404)
+                .json({ success: false, message: 'Not found' })
         }
 
         res.status(200).json({ success: true, movies })
     }
 
     async function getMovie(req, res) {
-        const id = req.params.movie;
-        const movie = await movieRepo.getById(id);
+        const id = req.params.movie
+        const movie = await movieRepo.getById(id)
 
         if (!movie) {
             return res.status(404).send('Movie not found')
@@ -57,7 +59,9 @@ export default function makeMoviesEndpointHandler({ movieRepo, imdbApi }) {
         const imdbMovies = await imdbApi.searchMovie(search)
 
         if (!imdbMovies) {
-            return res.status(404).json({ success: false, message: 'Not found' })
+            return res
+                .status(404)
+                .json({ success: false, message: 'Not found' })
         }
 
         const movies = mapImdbMovies(imdbMovies)

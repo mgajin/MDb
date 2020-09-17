@@ -1,7 +1,7 @@
 export default function makeImdbApi({ axios }) {
     return Object.freeze({
         searchMovie,
-        fetchMovie
+        fetchMovie,
     })
 
     async function searchMovie(search) {
@@ -19,7 +19,7 @@ export default function makeImdbApi({ axios }) {
 
         return response
     }
-    
+
     async function fetch(params) {
         let res = null
 
@@ -27,12 +27,13 @@ export default function makeImdbApi({ axios }) {
         const headers = {
             'content-type': 'application/octet-stream',
             'x-rapidapi-host': `${process.env.API_URL}`,
-            'x-rapidapi-key': `${process.env.API_KEY}`
+            'x-rapidapi-key': `${process.env.API_KEY}`,
         }
 
-        await axios.get(url, { headers, params })
-            .then( response => res = response.data )
-            .catch( err => console.log(err) )
+        await axios
+            .get(url, { headers, params })
+            .then((response) => (res = response.data))
+            .catch((err) => console.log(err))
 
         return res
     }

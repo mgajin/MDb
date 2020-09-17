@@ -3,7 +3,7 @@ export default function makeWatchlistRepo({ watchlistModel }) {
         getWatchlist,
         createWatchlist,
         insertMovie,
-        removeMovie
+        removeMovie,
     })
 
     async function getWatchlist(userId) {
@@ -11,9 +11,9 @@ export default function makeWatchlistRepo({ watchlistModel }) {
             const watchlist = await watchlistModel
                 .findOne({ user: userId })
                 .populate('movies user', 'title poster username')
-            
+
             return watchlist
-        } catch(err) {
+        } catch (err) {
             console.error(err)
             return null
         }
@@ -36,7 +36,7 @@ export default function makeWatchlistRepo({ watchlistModel }) {
                 .findOne({ user: userId })
                 .populate('movies', 'title poster')
 
-            const { movies } = watchlist 
+            const { movies } = watchlist
 
             if (watchlist && !movies.includes(movieId)) {
                 movies.push(movieId)
@@ -58,13 +58,13 @@ export default function makeWatchlistRepo({ watchlistModel }) {
 
             const { movies } = watchlist
 
-            movies.forEach(movie => {
+            movies.forEach((movie) => {
                 if (movie._id == movieId) {
                     movies.splice(movies.indexOf(movie), 1)
                     watchlist.save()
                 }
             })
-    
+
             return watchlist
         } catch (err) {
             console.error(err)

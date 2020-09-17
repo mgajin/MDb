@@ -6,7 +6,7 @@ import colors from 'colors'
 import { cors } from './middlewares/cors'
 import connectDb from './db'
 
-config({ path: path.join(__dirname, "./config/config.env") })
+config({ path: path.join(__dirname, './config/config.env') })
 
 const PORT = process.env.PORT
 
@@ -34,7 +34,8 @@ app.use('/v1/watchlist', watchlistRouter)
 const server = app.listen(
     PORT,
     console.log(
-        `Server runing in ${process.env.NODE_ENV} mode on port ${PORT}`.yellow.bold
+        `Server runing in ${process.env.NODE_ENV} mode on port ${PORT}`.yellow
+            .bold
     )
 )
 

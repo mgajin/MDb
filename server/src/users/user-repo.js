@@ -2,7 +2,7 @@ export default function makeUserRepo({ userModel }) {
     return Object.freeze({
         getByUsername,
         getById,
-        addNew
+        addNew,
     })
 
     async function getByUsername(username) {
